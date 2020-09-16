@@ -10,3 +10,17 @@
 textarea {
 	resize: none;
 }
+
+body {
+	overflow-x: hidden;
+}
+
+textarea#input {
+	width: 100%;
+	box-sizing: border-box;
+	direction: ltr;
+	display: block;
+	max-width: 96%;
+	line-height: 1.5;
+	tab-size: 4;
+}

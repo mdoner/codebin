@@ -21,6 +21,10 @@ router.post('/create', (req, res) => {
 	var { input, name } = req.body;
 	let errors = [];
 
+	if (input.toString().replace(/(?:\r\n|\r|\n)/g, '').replace(/ /g, '').length < 1) {
+		return res.redirect('/create');
+	}
+
 	if (!name || !input) {
 		errors.push({ msg: 'Please enter all fields' });
 	}

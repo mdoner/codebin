@@ -19,10 +19,9 @@
   </div>
 </nav>
 <!-- Container -->
-<div style="float: left;" class=" noselect" id="linenos">&gt;</div>
 <div style="float: left;" class="mt-2 noselect">
   <form action="/create" method="POST">
-    <textarea id="input" name="input" spellcheck="false" style="width:98vw; height: 47vmax; margin-left: 2rem; margin-top: 0.8rem"></textarea>
+    <textarea id="input" name="input" spellcheck="false" class="tabSupport" style="width:100vw; height: 47vmax; margin-left: 2rem; margin-top: 0.8rem"></textarea>
     <input type="hidden" name="name" id="name" value="<%= name ? name : "Anonymous" %>" />
     <button id="submit" type="hidden" class="btn btn-info" hidden></button>
   </form>

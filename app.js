@@ -7,6 +7,8 @@ const session = require('express-session');
 var path = require('path');
 const { ensureAuthenticated, forwardAuthenticated, ensureAdmin } = require('./config/auth');
 const User = require('./models/User');
+const { uuid } = require('uuidv4');
+const axios = require('axios');
 
 const app = express();
 
@@ -59,6 +61,55 @@ app.use('/users', require('./routes/users.js'));
 app.use('/admin', require('./routes/admin.js'));
 app.use('/share', require('./routes/share.js'));
 app.use('/dashboard', require('./routes/dashboard.js'));
+
+//Error catcher
+app.use((err, req, res, next) => {
+	if (err) {
+		var errCode = uuid();
+		res.status('500').json({
+			status: 500,
+			errorInfo: 'Please report the following errorcode to an administrator.',
+			errorCode: errCode
+		});
+
+		axios
+			.post(
+				'https://discordapp.com/api/webhooks/755451980775817267/rh4sVQ7TKLV8N_qozmjtN91CCKO0E9vwrhtemu2ciERkU-nU7T5XskDTbrIaEDaXgz6t',
+				{
+					embeds: [
+						{
+							title: 'New Error!',
+							description: `New error generated at: ${req.path}`,
+							color: 15746887,
+							fields: [
+								{
+									name: 'Error code',
+									value: `${errCode}`
+								},
+								{
+									name: 'Error status',
+									value: '500'
+								},
+								{
+									name: 'Error Info',
+									value: `${err}`
+								}
+							],
+							footer: {
+								text: 'Error Catcher'
+							},
+							timestamp: new Date()
+						}
+					]
+				}
+			)
+			.catch((error) => {
+				console.log(error);
+			});
+	} else {
+		next();
+	}
+});
 
 //STATIC
 app.use('/media', express.static(path.join(__dirname, '/media')));
