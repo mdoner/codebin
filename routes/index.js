@@ -5,16 +5,10 @@ const User = require('../models/User');
 const JSONHelper = require('../lib/jsonHelper');
 const gen = require('../lib/generate');
 var path = require('path');
+const fs = require('fs');
 
 // Welcome Page
 router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
-
-// Dashboard
-router.get('/dashboard', ensureAuthenticated, (req, res) =>
-	res.render('dashboard', {
-		user: req.user
-	})
-);
 
 // Creator
 router.get('/create', checkAuth, (req, res) =>

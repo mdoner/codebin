@@ -58,6 +58,7 @@ app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 app.use('/admin', require('./routes/admin.js'));
 app.use('/share', require('./routes/share.js'));
+app.use('/dashboard', require('./routes/dashboard.js'));
 
 //STATIC
 app.use('/media', express.static(path.join(__dirname, '/media')));

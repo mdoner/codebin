@@ -9,7 +9,9 @@
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-      <h2 class="align-text-bottom" style="color: #62B6AF;">Codebin by: <%= data.name %></h2>
+      <a class="navbar-brand" href="/">
+        <h2 class="align-text-bottom" style="color: #62B6AF;">Codebin by: <%= data.name %></h2>
+      </a>
     </ul>
     <% if(name !== 'Anonymous') {%>
       <a href="/users/logout"><img style="width: 30px; height: 30px;" src="/media/logout.svg" loading="lazy"></a>
@@ -17,9 +19,9 @@
   </div>
 </nav>
 <!-- Container -->
-<div style="float: left;" class="mt-2 noselect">
-  <pre><code class="hljs"><% for(i in data.input) { %><%= Number(i)+1; %> </br><%}%></code></pre>
+<div style="float: left;" class="ml-2 mt-2 noselect">
+  <pre><code class="hljs"><% for(var i = 0; i<data.input.length-1; i++) { %><%= Number(i)+1; %> </br><%}%></code></pre>
 </div>
-<div style="float: left;" class="mt-2">
+<div style="float: left;" class="ml-2 mt-2">
   <pre><code class="hljs"><% for(i in data.input) { %><%= data.input[i] %></br><%}%></code></pre>
 </div>
