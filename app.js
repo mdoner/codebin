@@ -9,6 +9,8 @@ const { ensureAuthenticated, forwardAuthenticated, ensureAdmin } = require('./co
 const User = require('./models/User');
 const { uuid } = require('uuidv4');
 const axios = require('axios');
+const bodyParser = require('body-parser');
+var Recaptcha = require('express-recaptcha').RecaptchaV3;
 
 const app = express();
 
@@ -29,7 +31,8 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
 // Express body parser
-app.use(express.urlencoded({ limit: '5mb', extended: true, parameterLimit: 50000 }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ limit: '5mb', extended: true, parameterLimit: 50000 }));
 
 // Express session
 app.use(
