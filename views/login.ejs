@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body bg-dark text-white">
+        <div style="text-align: center; vertical-align: middle;">
+          <a href="/"><h1><img style="width: 120px; height: 120px;" src="/media/codebin-1.png" /></h1></a>
+          <h2 class="align-text-bottom" style="color: #62B6AF;">Login</h2>
+        </div>
+        <% include ./partials/messages %>
+        <form action="/users/login" method="POST">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter Email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Enter Password"
+            />
+          </div>
+          <button type="submit" class="btn btn-info">Login</button>
+        </form>
+        <p class="lead mt-4">
+          No account? <a href="/users/register">Register</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

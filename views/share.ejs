@@ -1,0 +1,25 @@
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark noselect">
+  <a class="navbar-brand" href="/">
+      <img src="/media/codebin-1.png" width="40" height="40" alt="" loading="lazy">
+    </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <h2 class="align-text-bottom" style="color: #62B6AF;">Codebin by: <%= data.name %></h2>
+    </ul>
+    <% if(name !== 'Anonymous') {%>
+      <a href="/users/logout"><img style="width: 30px; height: 30px;" src="/media/logout.svg" loading="lazy"></a>
+    <%}%>
+  </div>
+</nav>
+<!-- Container -->
+<div style="float: left;" class="mt-2 noselect">
+  <pre><code class="hljs"><% for(i in data.input) { %><%= Number(i)+1; %> </br><%}%></code></pre>
+</div>
+<div style="float: left;" class="mt-2">
+  <pre><code class="hljs"><% for(i in data.input) { %><%= data.input[i] %></br><%}%></code></pre>
+</div>

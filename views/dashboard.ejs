@@ -1,0 +1,13 @@
+<% include ./partials/header %>
+<!-- Container -->
+<div class="container">
+    
+    <h1 style="color: #62B6AF;" class="text-center mt-4">Welcome back, <%= user.name %>!</h1>
+
+    <div class="container footer text-center">
+        <a href="/create" class="btn btn-info">Create bin</a>
+        <%if (user.admin) {%>
+            <a href="/admin" class="btn btn-info">Admin</a>
+        <%}%>
+    </div>
+</div>

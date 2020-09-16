@@ -1,0 +1,11 @@
+<!-- Header -->
+
+<!-- Container -->
+<div style="float: left;" class=" noselect" id="linenos">&gt;</div>
+<div style="float: left;" class="mt-2 noselect">
+  <form action="/create" method="POST">
+    <textarea id="input" name="input" spellcheck="false" style="width:90vw; height: 50vmax; margin-left: 2rem; margin-top: 0.8rem"></textarea>
+    <input type="hidden" name="name" id="name" value="<%= name ? name : "Anonymous" %>" />
+    <button id="submit" type="hidden" class="btn btn-info" hidden></button>
+  </form>
+</div>
