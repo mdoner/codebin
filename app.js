@@ -29,7 +29,7 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
 // Express body parser
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ limit: '5mb', extended: true, parameterLimit: 50000 }));
 
 // Express session
 app.use(
