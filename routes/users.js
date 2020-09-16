@@ -40,7 +40,7 @@ router.post('/register', (req, res) => {
 	}
 
 	if (errors.length > 0) {
-		res.render('register', {
+		res.render('users/register', {
 			errors,
 			name,
 			email,
@@ -51,7 +51,7 @@ router.post('/register', (req, res) => {
 		User.findOne({ email: { $regex: new RegExp(email, 'i') } }).then((user) => {
 			if (user) {
 				errors.push({ msg: 'That email address is already registered' });
-				res.render('register', {
+				res.render('users/register', {
 					errors,
 					name,
 					email,
@@ -62,7 +62,7 @@ router.post('/register', (req, res) => {
 				User.findOne({ name: { $regex: new RegExp(name, 'i') } }).then((user) => {
 					if (user) {
 						errors.push({ msg: 'That username is already registered' });
-						res.render('register', {
+						res.render('users/register', {
 							errors,
 							name,
 							email,
