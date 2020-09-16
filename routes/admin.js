@@ -34,15 +34,6 @@ router.get('/bins', ensureAdmin, (req, res) => {
 
 		arrayOfFiles.forEach((file) => {
 			var read = JSONHelper.readFile(__dirname + '/../raw', file.toString().slice(0, -5));
-			if (read.name === 'uwu') {
-				try {
-					fs.unlinkSync(__dirname + `/../raw/${file}`);
-
-					console.log('File is deleted.');
-				} catch (error) {
-					console.log(error);
-				}
-			}
 
 			read.firstline = read.input[0];
 			if (read.firstline.length > 15) read.firstline = read.firstline.toString().substr(0, 15);
