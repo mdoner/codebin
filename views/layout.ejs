@@ -10,7 +10,7 @@
     <% if(data.input != 'cx') {%>
       <!-- OG Meta Share -->
       <% d = data.input[0].length < 80 ? data.input[0] : data.input[0].toString().substr(0,80) + "..." %>
-      <meta property="og:title" content="Codebin by: <%= data.name %> | <%= data.id %>"/>
+      <meta property="og:title" content="Codebin by <%= data.name %> | <%= data.id %>"/>
       <meta property="og:description" content="<%= d %>"/>
       <meta property="og:type" content="website"/>
       <meta property="og:url" content="https://codebin.run/share/<%= data.id %>"/>
