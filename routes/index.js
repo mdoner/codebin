@@ -24,7 +24,10 @@ router.post('/create', (req, res) => {
 	let errors = [];
 
 	if (input.toString().replace(/(?:\r\n|\r|\n)/g, '').replace(/ /g, '').length < 1) {
-		return res.redirect('/create');
+		return res.render('users/login', {
+			errors,
+			data: { input: 'cx' }
+		});
 	}
 
 	if (!name || !input) {
@@ -44,8 +47,9 @@ router.post('/create', (req, res) => {
 		req.body['g-recaptcha-response'] === null
 	) {
 		errors.push({ msg: 'Failed captcha!' });
-		return res.render('create', {
-			errors
+		return res.render('users/login', {
+			errors,
+			data: { input: 'cx' }
 		});
 	}
 
@@ -62,7 +66,7 @@ router.post('/create', (req, res) => {
 		body = JSON.parse(body);
 		if (body.success !== undefined && !body.success) {
 			errors.push({ msg: 'Failed captcha!' });
-			return res.render('create', {
+			return res.render('users/login', {
 				errors,
 				data: { input: 'cx' }
 			});
