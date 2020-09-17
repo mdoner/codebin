@@ -9,12 +9,13 @@ const fs = require('fs');
 const request = require('request');
 
 //Welcome Page
-router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
+router.get('/', forwardAuthenticated, (req, res) => res.render('welcome', { data: { input: 'cx' } }));
 
 // Creator
 router.get('/create', checkAuth, (req, res) =>
 	res.render('create', {
-		name: req.user.name ? req.user.name : 'Anonymous'
+		name: req.user.name ? req.user.name : 'Anonymous',
+		data: { input: 'cx' }
 	})
 );
 
@@ -43,7 +44,7 @@ router.post('/create', (req, res) => {
 		req.body['g-recaptcha-response'] === null
 	) {
 		errors.push({ msg: 'Failed captcha!' });
-		return res.render('users/login', {
+		return res.render('create', {
 			errors
 		});
 	}
@@ -61,8 +62,9 @@ router.post('/create', (req, res) => {
 		body = JSON.parse(body);
 		if (body.success !== undefined && !body.success) {
 			errors.push({ msg: 'Failed captcha!' });
-			return res.render('users/login', {
-				errors
+			return res.render('create', {
+				errors,
+				data: { input: 'cx' }
 			});
 		}
 		JSONHelper.writeFile(__dirname + '/../raw', fileName, JSONObj, res.redirect('/share/' + fileName));

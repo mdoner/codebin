@@ -8,10 +8,10 @@ const { forwardAuthenticated } = require('../config/auth');
 const request = require('request');
 
 // Login Page
-router.get('/login', forwardAuthenticated, (req, res) => res.render('users/login'));
+router.get('/login', forwardAuthenticated, (req, res) => res.render('users/login', { data: { input: 'cx' } }));
 
 // Register Page
-router.get('/register', forwardAuthenticated, (req, res) => res.render('users/register'));
+router.get('/register', forwardAuthenticated, (req, res) => res.render('users/register', { data: { input: 'cx' } }));
 
 //Mail stuff
 var nodemailer = require('nodemailer');
@@ -46,7 +46,10 @@ router.post('/register', (req, res) => {
 			name,
 			email,
 			password,
-			password2
+			password2,
+			data: {
+				input: 'cx'
+			}
 		});
 	} else {
 		User.findOne({ email: { $regex: new RegExp(email, 'i') } }).then((user) => {
@@ -57,7 +60,10 @@ router.post('/register', (req, res) => {
 					name,
 					email,
 					password,
-					password2
+					password2,
+					data: {
+						input: 'cx'
+					}
 				});
 			} else {
 				User.findOne({ name: { $regex: new RegExp(name, 'i') } }).then((user) => {
@@ -68,13 +74,19 @@ router.post('/register', (req, res) => {
 							name,
 							email,
 							password,
-							password2
+							password2,
+							data: {
+								input: 'cx'
+							}
 						});
 					} else {
 						const newUser = new User({
 							name,
 							email,
-							password
+							password,
+							data: {
+								input: 'cx'
+							}
 						});
 
 						if (
@@ -85,7 +97,10 @@ router.post('/register', (req, res) => {
 							let errors = [];
 							errors.push({ msg: 'Failed captcha!' });
 							return res.render('users/register', {
-								errors
+								errors,
+								data: {
+									input: 'cx'
+								}
 							});
 						}
 
@@ -105,7 +120,10 @@ router.post('/register', (req, res) => {
 								let errors = [];
 								errors.push({ msg: 'Failed captcha!' });
 								return res.render('users/register', {
-									errors
+									errors,
+									data: {
+										input: 'cx'
+									}
 								});
 							}
 						});
@@ -144,7 +162,11 @@ router.post('/register', (req, res) => {
 										transporter.sendMail(mainOptions, callback);
 
 										//Redirect
-										res.redirect('/users/login');
+										res.redirect('/users/login', {
+											data: {
+												input: 'cx'
+											}
+										});
 									})
 									.catch((err) => console.log(err));
 							});
@@ -166,7 +188,10 @@ router.post('/login', (req, res, next) => {
 		let errors = [];
 		errors.push({ msg: 'Failed captcha!' });
 		return res.render('users/login', {
-			errors
+			errors,
+			data: {
+				input: 'cx'
+			}
 		});
 	}
 
@@ -186,7 +211,10 @@ router.post('/login', (req, res, next) => {
 			let errors = [];
 			errors.push({ msg: 'Failed captcha!' });
 			return res.render('users/login', {
-				errors
+				errors,
+				data: {
+					input: 'cx'
+				}
 			});
 		}
 		passport.authenticate('local', {
@@ -201,7 +229,11 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res) => {
 	req.logout();
 	req.flash('success_msg', 'You are logged out');
-	res.redirect('/users/login');
+	res.redirect('/users/login', {
+		data: {
+			input: 'cx'
+		}
+	});
 });
 
 //Email plate

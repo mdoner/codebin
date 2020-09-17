@@ -9,7 +9,8 @@ const { uuid } = require('uuidv4');
 //Admin panel
 router.get('/', ensureAdmin, (req, res) => {
 	res.render('admin/admin', {
-		user: req.user
+		user: req.user,
+		data: { input: 'cx' }
 	});
 });
 
@@ -20,7 +21,8 @@ router.get('/users', ensureAdmin, (req, res) => {
 
 		res.render('admin/users', {
 			user: req.user,
-			docs: docs
+			docs: docs,
+			data: { input: 'cx' }
 		});
 	});
 });
@@ -48,7 +50,10 @@ router.get('/bins', ensureAdmin, (req, res) => {
 
 		res.render('admin/bins', {
 			user: req.user,
-			docs: resp
+			docs: resp,
+			data: {
+				input: 'cx'
+			}
 		});
 	} catch (e) {
 		console.log(e);

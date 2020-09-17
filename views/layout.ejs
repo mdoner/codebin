@@ -7,16 +7,30 @@
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-     <!-- OG Meta -->
-    <meta property="og:title" content="Codebin"/>
-    <meta property="og:description" content="Want an easy place to share your code? Come right to Codebin!"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://codebin.run/"/>
-    <meta property="og:site_name" content="Codebin | Share your code!"/>
-    <meta property="og:image" content="https://i.ntaheij.dev/codebin-1.png"/>
-    <meta name="theme-color" content="#62B6AF">
-    <meta name="keywords" content="hastebin, pastebin, code, share, codeshare, share code, code share, haste bin, hasteb.in, live code, html, php, css, js, javascript, share javascript, text editor, text">
-    <meta name="robots" content="noindex,nofollow" />
+    <% if(data.input != 'cx') {%>
+      <!-- OG Meta Share -->
+      <meta property="og:title" content="Codebin by: <%= data.name %> | <%= data.id %>"/>
+      <meta property="og:description" content="<%= data.input.toString().substr(0,30) %>..."/>
+      <meta property="og:type" content="website"/>
+      <meta property="og:url" content="https://codebin.run/share/<%= data.id %>"/>
+      <meta property="og:site_name" content="Codebin | Share your code!"/>
+      <meta property="og:image" content="https://i.ntaheij.dev/codebin-1.png"/>
+      <meta name="theme-color" content="#62B6AF">
+      <meta name="keywords" content="hastebin, pastebin, code, share, codeshare, share code, code share, haste bin, hasteb.in, live code, html, php, css, js, javascript, share javascript, text editor, text, codebin.run, codebin.run/<%= data.id %>, <%= data.id %>">
+      <meta name="robots" content="noindex,nofollow" />
+
+    <%} else {%>
+        <!-- OG Meta Normal-->
+        <meta property="og:title" content="Codebin"/>
+        <meta property="og:description" content="Want an easy place to share your code? Come right to Codebin!"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content="https://codebin.run/"/>
+        <meta property="og:site_name" content="Codebin | Share your code!"/>
+        <meta property="og:image" content="https://i.ntaheij.dev/codebin-1.png"/>
+        <meta name="theme-color" content="#62B6AF">
+        <meta name="keywords" content="hastebin, pastebin, code, share, codeshare, share code, code share, haste bin, hasteb.in, live code, html, php, css, js, javascript, share javascript, text editor, text">
+        <meta name="robots" content="noindex,nofollow" />
+    <%}%>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="https://i.ntaheij.dev/codebin-1.png">

@@ -10,7 +10,8 @@ const fs = require('fs');
 // Dashboard
 router.get('/', ensureAuthenticated, (req, res) => {
 	res.render('dashboard/dashboard', {
-		user: req.user
+		user: req.user,
+		data: { input: 'cx' }
 	});
 });
 
@@ -36,7 +37,8 @@ router.get('/myBins', ensureAuthenticated, (req, res) => {
 		const resp = docs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 		res.render('dashboard/myBins', {
 			user: req.user,
-			docs: docs
+			docs: docs,
+			data: { input: 'cx' }
 		});
 	} catch (e) {
 		console.log(e);
@@ -46,7 +48,8 @@ router.get('/myBins', ensureAuthenticated, (req, res) => {
 // Creator
 router.get('/create', checkAuth, (req, res) =>
 	res.render('create', {
-		name: req.user.name ? req.user.name : 'Anonymous'
+		name: req.user.name ? req.user.name : 'Anonymous',
+		data: { input: 'cx' }
 	})
 );
 

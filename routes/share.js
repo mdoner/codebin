@@ -10,6 +10,8 @@ var path = require('path');
 
 router.get('/:id', (req, res) => {
 	var data = JSONHelper.readFile(__dirname + '/../raw', req.params.id);
+	data.id = req.params.id;
+
 	var username = '';
 	if (req.user === undefined) {
 		username = 'Anonymous';
@@ -23,6 +25,7 @@ router.get('/:id', (req, res) => {
 });
 router.get('/:id/raw', (req, res) => {
 	var data = JSONHelper.readFile(__dirname + '/../raw', req.params.id);
+	data.id = req.params.id;
 
 	if (req.user === undefined) {
 		username = 'Anonymous';
