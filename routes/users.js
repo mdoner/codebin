@@ -5,6 +5,7 @@ const passport = require('passport');
 // Load User model
 const User = require('../models/User');
 const { forwardAuthenticated } = require('../config/auth');
+const request = require('request');
 
 // Login Page
 router.get('/login', forwardAuthenticated, (req, res) => res.render('users/login'));
@@ -76,6 +77,39 @@ router.post('/register', (req, res) => {
 							password
 						});
 
+						if (
+							req.body['g-recaptcha-response'] === undefined ||
+							req.body['g-recaptcha-response'] === '' ||
+							req.body['g-recaptcha-response'] === null
+						) {
+							let errors = [];
+							errors.push({ msg: 'Failed captcha!' });
+							return res.render('users/register', {
+								errors
+							});
+						}
+
+						var secretKey = '6LezSs0ZAAAAAJ6floShYqYAf35TAeayIV7N9wDC';
+						var verificationUrl =
+							'https://www.recaptcha.net/recaptcha/api/siteverify?secret=' +
+							secretKey +
+							'&response=' +
+							req.body['g-recaptcha-response'] +
+							'&remoteip=' +
+							req.connection.remoteAddress;
+
+						request(verificationUrl, function(error, response, body) {
+							body = JSON.parse(body);
+							// Success will be true or false depending upon captcha validation.
+							if (body.success !== undefined && !body.success) {
+								let errors = [];
+								errors.push({ msg: 'Failed captcha!' });
+								return res.render('users/register', {
+									errors
+								});
+							}
+						});
+
 						bcrypt.genSalt(10, (err, salt) => {
 							bcrypt.hash(newUser.password, salt, (err, hash) => {
 								if (err) throw err;
@@ -124,11 +158,43 @@ router.post('/register', (req, res) => {
 
 // Login
 router.post('/login', (req, res, next) => {
-	passport.authenticate('local', {
-		successRedirect: '/dashboard',
-		failureRedirect: '/users/login',
-		failureFlash: true
-	})(req, res, next);
+	if (
+		req.body['g-recaptcha-response'] === undefined ||
+		req.body['g-recaptcha-response'] === '' ||
+		req.body['g-recaptcha-response'] === null
+	) {
+		let errors = [];
+		errors.push({ msg: 'Failed captcha!' });
+		return res.render('users/login', {
+			errors
+		});
+	}
+
+	var secretKey = '6LezSs0ZAAAAAJ6floShYqYAf35TAeayIV7N9wDC';
+	var verificationUrl =
+		'https://www.recaptcha.net/recaptcha/api/siteverify?secret=' +
+		secretKey +
+		'&response=' +
+		req.body['g-recaptcha-response'] +
+		'&remoteip=' +
+		req.connection.remoteAddress;
+
+	request(verificationUrl, function(error, response, body) {
+		body = JSON.parse(body);
+		// Success will be true or false depending upon captcha validation.
+		if (body.success !== undefined && !body.success) {
+			let errors = [];
+			errors.push({ msg: 'Failed captcha!' });
+			return res.render('users/login', {
+				errors
+			});
+		}
+		passport.authenticate('local', {
+			successRedirect: '/dashboard',
+			failureRedirect: '/users/login',
+			failureFlash: true
+		})(req, res, next);
+	});
 });
 
 // Logout

@@ -24,3 +24,24 @@ textarea#input {
 	line-height: 1.5;
 	tab-size: 4;
 }
+
+textarea#input {
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+textarea#input::-webkit-scrollbar-track {
+	background-color: #002b36;
+}
+
+textarea#input::-webkit-scrollbar {
+	cursor: pointer;
+	width: 6px;
+	background-color: #002b36;
+}
+
+textarea#input::-webkit-scrollbar-thumb {
+	cursor: pointer;
+	border-radius: 100px;
+	background-color: #545454;
+}

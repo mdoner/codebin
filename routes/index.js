@@ -6,8 +6,9 @@ const JSONHelper = require('../lib/jsonHelper');
 const gen = require('../lib/generate');
 var path = require('path');
 const fs = require('fs');
+const request = require('request');
 
-// Welcome Page
+//Welcome Page
 router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
 
 // Creator
@@ -34,7 +35,38 @@ router.post('/create', (req, res) => {
 	JSONObj.date = new Date();
 
 	var fileName = new gen().createKey(6);
-	JSONHelper.writeFile(__dirname + '/../raw', fileName, JSONObj, res.redirect('/share/' + fileName));
+
+	//Captcha
+	if (
+		req.body['g-recaptcha-response'] === undefined ||
+		req.body['g-recaptcha-response'] === '' ||
+		req.body['g-recaptcha-response'] === null
+	) {
+		errors.push({ msg: 'Failed captcha!' });
+		return res.render('users/login', {
+			errors
+		});
+	}
+
+	var secretKey = '6LfMTc0ZAAAAAJ2VFfUCbvJhsRotXu04HCykJbTM';
+	var verificationUrl =
+		'https://www.recaptcha.net/recaptcha/api/siteverify?secret=' +
+		secretKey +
+		'&response=' +
+		req.body['g-recaptcha-response'] +
+		'&remoteip=' +
+		req.connection.remoteAddress;
+
+	request(verificationUrl, function(error, response, body) {
+		body = JSON.parse(body);
+		if (body.success !== undefined && !body.success) {
+			errors.push({ msg: 'Failed captcha!' });
+			return res.render('users/login', {
+				errors
+			});
+		}
+		JSONHelper.writeFile(__dirname + '/../raw', fileName, JSONObj, res.redirect('/share/' + fileName));
+	});
 });
 
 module.exports = router;

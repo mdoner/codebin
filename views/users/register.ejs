@@ -7,7 +7,7 @@
           <h2 class="align-text-bottom" style="color: #62B6AF;">Register</h2>
         </div>
         <% include ../partials/messages %>
-        <form action="/users/register" method="POST">
+        <form action="/users/register" id="register" method="POST">
           <div class="form-group">
             <label for="name">Username</label>
             <input
@@ -52,6 +52,7 @@
               value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
             />
           </div>
+          <div class="g-recaptcha" data-theme="dark" data-sitekey="6LezSs0ZAAAAAJqWpdzpoIPqWavX8HwjSaLd0Q0H"></div><br>
           <button type="submit" class="btn btn-info btn-block">
             Register
           </button>
@@ -61,3 +62,20 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#register').submit(function() {
+      $(this).ajaxSubmit({
+        error: function(xhr) {
+          status('Error: ' + xhr.status);
+        },
+       success: function(response) {
+        console.log(response);
+       }
+      });
+      //Very important line, it disable the page refresh.
+      return false;
+    });
+  });
+</script>

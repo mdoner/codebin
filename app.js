@@ -10,7 +10,6 @@ const User = require('./models/User');
 const { uuid } = require('uuidv4');
 const axios = require('axios');
 const bodyParser = require('body-parser');
-var Recaptcha = require('express-recaptcha').RecaptchaV3;
 
 const app = express();
 
@@ -74,6 +73,8 @@ app.use((err, req, res, next) => {
 			errorInfo: 'Please report the following errorcode to an administrator.',
 			errorCode: errCode
 		});
+
+		console.log(err);
 
 		axios
 			.post(

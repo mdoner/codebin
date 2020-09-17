@@ -7,7 +7,7 @@
           <h2 class="align-text-bottom" style="color: #62B6AF;">Login</h2>
         </div>
         <% include ../partials/messages %>
-        <form action="/users/login" method="POST">
+        <form action="/users/login" id="login" method="POST">
           <div class="form-group">
             <label for="email">Email</label>
             <input
@@ -28,6 +28,7 @@
               placeholder="Enter Password"
             />
           </div>
+          <div class="g-recaptcha" data-theme="dark" data-sitekey="6LezSs0ZAAAAAJqWpdzpoIPqWavX8HwjSaLd0Q0H"></div><br>
           <button type="submit" class="btn btn-info">Login</button>
         </form>
         <p class="lead mt-4">
@@ -37,3 +38,20 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#login').submit(function() {
+      $(this).ajaxSubmit({
+        error: function(xhr) {
+          status('Error: ' + xhr.status);
+        },
+       success: function(response) {
+        console.log(response);
+       }
+      });
+      //Very important line, it disable the page refresh.
+      return false;
+    });
+  });
+</script>

@@ -28,8 +28,12 @@
     />
     <link rel="stylesheet" type="text/css" href="/media/solarized_dark.css">
     <link rel="stylesheet" type="text/css" href="/media/application.css">
+
+    <!-- Scripts -->
+    <script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>
     
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/media/application.min.js">
     <script type="text/javascript" src="/application.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
@@ -63,8 +67,6 @@
     <script>
       $(function(){var t=!0;$("textarea.tabSupport").keydown(function(e){if(27==e.keyCode)return t=!t,!1;if(13===e.keyCode&&t&&this.selectionStart==this.selectionEnd){for(var s=this.selectionStart,i=$(this).val();s>0&&"\n"!=i[s-1];)s--;for(var n=s;" "==i[s]||"\t"==i[s];)s++;if(s>n)return document.execCommand("insertText",!1,"\n"+i.substr(n,s-n)),this.blur(),this.focus(),!1}if(9===e.keyCode&&t){if(this.selectionStart==this.selectionEnd)if(e.shiftKey){i=this.value;this.selectionStart>0&&"\t"==i[this.selectionStart-1]&&document.execCommand("delete")}else document.execCommand("insertText",!1,"\t");else{var r=this.selectionStart,o=this.selectionEnd;for(i=$(this).val();r>0&&"\n"!=i[r-1];)r--;for(;o>0&&"\n"!=i[o-1]&&o<i.length;)o++;for(var h=i.substr(r,o-r).split("\n"),l=0;l<h.length;l++)l==h.length-1&&0==h[l].length||(e.shiftKey?h[l].startsWith("\t")?h[l]=h[l].substr(1):h[l].startsWith("    ")&&(h[l]=h[l].substr(4)):h[l]="\t"+h[l]);h=h.join("\n"),this.value=i.substr(0,r)+h+i.substr(o),this.selectionStart=r,this.selectionEnd=r+h.length}return!1}return t=!0,!0})});
     </script>
-    
-
       
     <title>Codebin | Share your code!</title>
   </head>
