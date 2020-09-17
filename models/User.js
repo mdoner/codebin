@@ -18,6 +18,11 @@ const UserSchema = new mongoose.Schema({
 		default: false,
 		required: true
 	},
+	betatester: {
+		type: Boolean,
+		default: false,
+		required: true
+	},
 	date: {
 		type: Date,
 		default: Date.now

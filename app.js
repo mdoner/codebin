@@ -18,7 +18,6 @@ require('./config/passport')(passport);
 
 // DB Config
 const db = require('./config/keys').mongoURI;
-
 // Connect to MongoDB
 mongoose
 	.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })

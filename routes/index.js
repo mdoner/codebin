@@ -9,7 +9,9 @@ const fs = require('fs');
 const request = require('request');
 
 //Welcome Page
-router.get('/', forwardAuthenticated, (req, res) => res.render('welcome', { data: { input: 'cx' } }));
+router.get('/', forwardAuthenticated, (req, res) =>
+	res.render('welcome', { data: { input: 'cx', version: '1.0.8-beta' } })
+);
 
 // Creator
 router.get('/create', checkAuth, (req, res) =>
