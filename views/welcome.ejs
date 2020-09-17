@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col-md-6 m-auto">
-      <div class="card card-body text-center bg-dark text-white text-center">
+      <div class="card card-body text-center bg-dark text-white ">
         <h1><img style="width: 120px; height: 120px;" src="/media/codebin-1.png" /></h1>
         <h2 style="color: #62B6AF;">Codebin</h2>
         <h5 style="color: #2B8478;" class="mb-4">Share your code!</h5>
@@ -11,9 +11,9 @@
         <p>Want to stay anonymous? No worries.</p>
         <a href="/create" class="btn btn-info btn-block mb-4">Go straight to pasting</a>
 
-        <div class="text-white-50 d-inline-block">
-          <strong><i class="fas fa-fw fa-code-branch"></i></strong> eu-be-web01 - v<% data.version %><br>
-          <strong><i class="far fa-fw fa-clock"></i></strong> 0.031s
+        <div class="text-white-50 d-inline-block mt-2">
+          <strong><i class="fas fa-fw fa-code-branch"></i></strong> eu-nl-web01 - v<%= data.version %><br>
+          <strong><i class="far fa-fw fa-clock"></i></strong> <%= (Date.now() - data.dateNow) / 1000 %>s
         </div>
       </div>
     </div>

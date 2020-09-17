@@ -8,10 +8,12 @@ var path = require('path');
 const fs = require('fs');
 const request = require('request');
 
+const version = JSONHelper.readFile(__dirname + '/..', 'package').version;
+
 //Welcome Page
-router.get('/', forwardAuthenticated, (req, res) =>
-	res.render('welcome', { data: { input: 'cx', version: '1.0.8-beta' } })
-);
+router.get('/', forwardAuthenticated, (req, res) => {
+	res.render('welcome', { data: { input: 'cx', version: version, dateNow: Date.now() } });
+});
 
 // Creator
 router.get('/create', checkAuth, (req, res) =>

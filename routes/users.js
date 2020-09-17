@@ -6,12 +6,19 @@ const passport = require('passport');
 const User = require('../models/User');
 const { forwardAuthenticated } = require('../config/auth');
 const request = require('request');
+const JSONHelper = require('../lib/jsonHelper');
+
+const version = JSONHelper.readFile(__dirname + '/..', 'package').version;
 
 // Login Page
-router.get('/login', forwardAuthenticated, (req, res) => res.render('users/login', { data: { input: 'cx' } }));
+router.get('/login', forwardAuthenticated, (req, res) =>
+	res.render('users/login', { data: { input: 'cx', version: version, dateNow: Date.now() } })
+);
 
 // Register Page
-router.get('/register', forwardAuthenticated, (req, res) => res.render('users/register', { data: { input: 'cx' } }));
+router.get('/register', forwardAuthenticated, (req, res) =>
+	res.render('users/register', { data: { input: 'cx', version: version, dateNow: Date.now() } })
+);
 
 //Mail stuff
 var nodemailer = require('nodemailer');
