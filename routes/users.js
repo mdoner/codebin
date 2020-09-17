@@ -170,11 +170,7 @@ router.post('/register', (req, res) => {
 										transporter.sendMail(mainOptions, callback);
 
 										//Redirect
-										res.redirect('/users/login', {
-											data: {
-												input: 'cx'
-											}
-										});
+										res.redirect('/users/login');
 									})
 									.catch((err) => console.log(err));
 							});
