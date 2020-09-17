@@ -125,13 +125,13 @@ router.post('/register', (req, res) => {
 											port: 587,
 											secure: false,
 											auth: {
-												user: 'postmaster@codebin.ntaheij.dev',
-												pass: 'eb2b830ad6a5e1efa00015d776850ecd-d5e69b0b-ad890c3f'
+												user: 'postmaster@mail.codebin.run',
+												pass: '3bce8b41e34ba484f47027ff13afeda8-d5e69b0b-159a84bf'
 											}
 										};
 										var transporter = nodemailer.createTransport(transOptions);
 										var mainOptions = {
-											from: 'Codebin Team <info@codebin.ntaheij.dev>',
+											from: 'Codebin Team <info@mail.codebin.run>',
 											to: email,
 											subject: 'Welcome to Codebin!',
 											html: plate.replace('{name}', name)
