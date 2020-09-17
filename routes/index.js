@@ -9,10 +9,11 @@ const fs = require('fs');
 const request = require('request');
 
 const version = JSONHelper.readFile(__dirname + '/..', 'package').version;
+const location = JSONHelper.readFile(__dirname + '/..', 'package').location;
 
 //Welcome Page
 router.get('/', forwardAuthenticated, (req, res) => {
-	res.render('welcome', { data: { input: 'cx', version: version, dateNow: Date.now() } });
+	res.render('welcome', { data: { input: 'cx', version: version, location: location, dateNow: Date.now() } });
 });
 
 // Creator

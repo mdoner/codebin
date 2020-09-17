@@ -9,15 +9,16 @@ const request = require('request');
 const JSONHelper = require('../lib/jsonHelper');
 
 const version = JSONHelper.readFile(__dirname + '/..', 'package').version;
+const location = JSONHelper.readFile(__dirname + '/..', 'package').location;
 
 // Login Page
 router.get('/login', forwardAuthenticated, (req, res) =>
-	res.render('users/login', { data: { input: 'cx', version: version, dateNow: Date.now() } })
+	res.render('users/login', { data: { input: 'cx', version: version, location: location, dateNow: Date.now() } })
 );
 
 // Register Page
 router.get('/register', forwardAuthenticated, (req, res) =>
-	res.render('users/register', { data: { input: 'cx', version: version, dateNow: Date.now() } })
+	res.render('users/register', { data: { input: 'cx', version: version, location: location, dateNow: Date.now() } })
 );
 
 //Mail stuff
