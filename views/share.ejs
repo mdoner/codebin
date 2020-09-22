@@ -19,9 +19,11 @@
   </div>
 </nav>
 <!-- Container -->
-<div style="float: left;" class="ml-2 mt-2 noselect">
-  <pre><code class="hljs"><% for(var i = 0; i<data.input.length; i++) { %><%= Number(i)+1; %> </br><%}%></code></pre>
-</div>
-<div style="float: left;" class="ml-2 mt-2">
-  <pre><code class="hljs"><% for(i in data.input) { %><%= data.input[i] %></br><%}%></code></pre>
+<div>
+  <div id="linenos" style="font-size: 1.0rem;">
+  <% for(var i = 0; i<data.input.length; i++) { %><%= Number(i)+1; %> </br><%}%>
+  </div>
+  <div style="margin-left: 1.1rem; ">
+    <pre id="box" class="ml-4"><code class="hljs"><% for(i in data.input) { %><%= data.input[i] %></br><%}%></code></pre>
+  </div>
 </div>
