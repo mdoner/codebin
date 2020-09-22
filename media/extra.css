@@ -13,7 +13,6 @@ textarea {
 
 body {
 	overflow: auto;
-	overflow-x: hidden;
 }
 
 body::-webkit-scrollbar-corner {
