@@ -25,7 +25,8 @@ router.get('/create', checkAuth, (req, res) =>
 );
 
 router.post('/create', (req, res) => {
-	var { input, name } = req.body;
+	var name = req.user.name ? req.user.name : 'Anonymous';
+	var { input } = req.body;
 	let errors = [];
 
 	if (input.toString().replace(/(?:\r\n|\r|\n)/g, '').replace(/ /g, '').length < 1) {
