@@ -45,7 +45,13 @@
     <link rel="stylesheet" type="text/css" href="/media/application.css">
 
     <!-- Scripts -->
-    <script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>
+    <script src="https://www.recaptcha.net/recaptcha/api.js"></script>
+
+    <script>
+      function onSubmit(token) {
+        document.getElementById("create").submit();
+      }
+    </script>
     
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
@@ -65,7 +71,7 @@
               switch (String.fromCharCode(event.which).toLowerCase()) {
               case 's':
                   event.preventDefault();
-                  $("#submit").click();
+                  $("#subBtn").click();
                   break;
               case 'n':
                 event.preventDefault();

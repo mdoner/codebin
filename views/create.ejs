@@ -21,11 +21,14 @@
 <!-- Container -->
 <div style="float: left;" class="mt-2 noselect">
   <form action="/create" id="create" method="POST">
-    
-    <textarea id="input" name="input" spellcheck="false" class="tabSupport" style="width:100vw; height: 40vmax; margin-left: 2rem; margin-top: 0.8rem"></textarea>
+    <button id="subBtn" class="g-recaptcha btn btn-info mt-0 " style="position: absolute; float: right; right:0.2rem;"
+        data-sitekey="6LcwKc8ZAAAAAGfWhYJYJUu4rhNve4s4HVRr8B-Q" 
+        data-callback='onSubmit' 
+        data-theme='dark'
+        data-action='submit'>Save Code</button>
+    <textarea id="input" name="input" spellcheck="false" class="tabSupport" style="width:100vw; height: 40vmax; margin-left: 2rem; margin-top: 0.8rem;"></textarea>
     <input type="hidden" name="name" id="name" value="<%= name ? name : "Anonymous" %>" />
-    <button id="submit" type="submit" type="hidden" class="btn btn-info mt-2">Save code</button>
-    <div id="recaptcha" class="g-recaptcha" data-theme="dark" data-sitekey="6LfMTc0ZAAAAACfhUtzFLaziegDNnSkHjVBUIlwG"></div>
+
   </form>
 </div>
 

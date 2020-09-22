@@ -58,7 +58,7 @@ router.post('/create', (req, res) => {
 		});
 	}
 
-	var secretKey = '6LfMTc0ZAAAAAJ2VFfUCbvJhsRotXu04HCykJbTM';
+	var secretKey = '6LcwKc8ZAAAAAFr26C1CEW660dKbfiikw9UyBp6d';
 	var verificationUrl =
 		'https://www.recaptcha.net/recaptcha/api/siteverify?secret=' +
 		secretKey +
