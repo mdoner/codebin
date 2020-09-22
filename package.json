@@ -1,6 +1,6 @@
 {
 	"name": "codebin-server",
-	"version": "1.0.2-beta",
+	"version": "1.0.3-beta",
 	"location": "weu-dev01",
 	"description": "Codebin server",
 	"main": "app.js",
