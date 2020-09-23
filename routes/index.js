@@ -83,4 +83,16 @@ router.post('/create', (req, res) => {
 	});
 });
 
+//TOS
+router.get('/terms', (req, res) => {
+	res.render('terms/tos', {
+		data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+	});
+});
+router.get('/privacy', (req, res) => {
+	res.render('terms/privacy', {
+		data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+	});
+});
+
 module.exports = router;
