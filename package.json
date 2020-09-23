@@ -1,7 +1,7 @@
 {
 	"name": "codebin-server",
 	"version": "1.0.6-beta",
-	"location": "weu-dev01",
+	"location": "weu-dev-01",
 	"description": "Codebin server",
 	"main": "app.js",
 	"scripts": {
@@ -21,6 +21,7 @@
 		"ejs": "^2.6.1",
 		"express": "^4.16.4",
 		"express-ejs-layouts": "^2.5.0",
+		"express-query-boolean": "^2.0.0",
 		"express-recaptcha": "^5.0.2",
 		"express-session": "^1.15.6",
 		"mailgun-js": "^0.22.0",

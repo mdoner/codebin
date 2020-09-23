@@ -13,6 +13,7 @@ const bodyParser = require('body-parser');
 const JSONHelper = require('./lib/jsonHelper');
 const schedule = require('node-schedule');
 const nodemailer = require('nodemailer');
+const boolParser = require('express-query-boolean');
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.set('view engine', 'ejs');
 // Express body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true, parameterLimit: 50000 }));
+app.use(boolParser());
 
 // Express session
 app.use(
@@ -68,6 +70,7 @@ app.use('/users', require('./routes/users.js'));
 app.use('/admin', require('./routes/admin.js'));
 app.use('/share', require('./routes/share.js'));
 app.use('/dashboard', require('./routes/dashboard.js'));
+app.use('/api', require('./routes/api.js'));
 
 //Error catcher
 app.use((err, req, res, next) => {
