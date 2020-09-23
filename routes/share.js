@@ -23,10 +23,14 @@ router.get('/:id.raw', (req, res) => {
 	data.id = req.params.id;
 
 	let private = data.private ? data.private : false;
+	let user = req.user ? req.user : { name: 'Anonymous', admin: false };
+
 	if (private) {
-		return res.status(410).render('404/401', {
-			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
-		});
+		if (!user.admin && user.name !== data.name) {
+			return res.status(410).render('404/401', {
+				data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+			});
+		}
 	}
 
 	if (req.user === undefined) {
@@ -51,10 +55,14 @@ router.get('/:id', (req, res) => {
 	data.id = req.params.id;
 
 	let private = data.private ? data.private : false;
+	let user = req.user ? req.user : { name: 'Anonymous', admin: false };
+
 	if (private) {
-		return res.status(410).render('404/401', {
-			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
-		});
+		if (!user.admin && user.name !== data.name) {
+			return res.status(410).render('404/401', {
+				data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+			});
+		}
 	}
 
 	var username = '';
@@ -79,10 +87,14 @@ router.get('/:id/raw', (req, res) => {
 	data.id = req.params.id;
 
 	let private = data.private ? data.private : false;
+	let user = req.user ? req.user : { name: 'Anonymous', admin: false };
+
 	if (private) {
-		return res.status(410).render('404/401', {
-			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
-		});
+		if (!user.admin && user.name !== data.name) {
+			return res.status(410).render('404/401', {
+				data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+			});
+		}
 	}
 
 	if (req.user === undefined) {
