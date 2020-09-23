@@ -150,18 +150,6 @@ router.get('/users', (req, res) => {
 	var JSONObj = { success: true, statusCode: 200 };
 
 	var users = [];
-
-	User.find({}, function(err, docs) {
-		if (err) console.log(err);
-
-		docs.forEach((s) => {
-			s.slice(3);
-			users.push(s);
-		});
-
-		JSONObj.users = docs;
-		res.status(200).json(JSONObj);
-	});
 });
 
 router.get('/bins', (req, res) => {
