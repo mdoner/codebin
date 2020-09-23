@@ -11,6 +11,8 @@ const { uuid } = require('uuidv4');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const JSONHelper = require('./lib/jsonHelper');
+const schedule = require('node-schedule');
+const nodemailer = require('nodemailer');
 
 const app = express();
 
@@ -128,6 +130,16 @@ app.use(function(req, res) {
 		.status(404)
 		.render('404/404', { data: { input: 'cx', version: version, location: location, dateNow: Date.now() } });
 });
+
+//Nightly run
+//Soon-ish
+// schedule.scheduleJob('0 0 * * *', () => {
+// 	const arrayOfFiles = fs.readdirSync(__dirname + '/../raw');
+// 	arrayOfFiles.forEach((file) => {
+// 		var read = JSONHelper.readFile(__dirname + '/../raw', file.toString().slice(0, -5));
+// 		var fileDate = Date(read.date);
+// 	});
+// });
 
 const PORT = process.env.PORT || 5000;
 

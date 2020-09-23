@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row mt-5">
+      <div class="col-md-6 m-auto">
+        <div class="card card-body bg-dark text-white">      
+          
+          
+          <div class="d-inline-block mt-2 text-center">
+            <h1 style="opacity: 98%;">Error 401</h1>
+            <img src="/media/robot.png" style="align-self: center;"/>
+            <h4 style="opacity: 80%;">Oh no! It looks like the owner has privated this bin.</h4>
+            <h6 style="opacity: 70%;" class="mt-4"><a style="color: inherit;" href="/">You can return to the home page here.</a></h6>
+          </div>
+          <div class="text-white-50 d-inline-block mt-2 text-center">
+            <strong><i class="fas fa-fw fa-code-branch"></i></strong> <%= data.location %> - v<%= data.version %><br>
+            <strong><i class="far fa-fw fa-clock"></i></strong> <%= (Date.now() - data.dateNow) / 1000 %>s
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    $(document).ready(function() {
+      $('#login').submit(function() {
+        $(this).ajaxSubmit({
+          error: function(xhr) {
+            status('Error: ' + xhr.status);
+          },
+         success: function(response) {
+          console.log(response);
+         }
+        });
+        //Very important line, it disable the page refresh.
+        return false;
+      });
+    });
+  </script>

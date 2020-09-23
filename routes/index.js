@@ -109,4 +109,24 @@ router.post('/delete', (req, res) => {
 	res.redirect('/dashboard/myBins');
 });
 
+//Change Private
+router.post('/changePrivate', (req, res) => {
+	let file = JSONHelper.readFile(__dirname + '/../raw', req.body.sent);
+
+	file.private = true;
+
+	if (req.body.ct == 'true') {
+		file.private = false;
+	}
+
+	if (req.user.admin) {
+		JSONHelper.writeFile(__dirname + '/../raw', req.body.sent, file);
+	} else if (req.user.name === file.name) {
+		JSONHelper.writeFile(__dirname + '/../raw', req.body.sent, file);
+	} else {
+		return res.status(401).json({ error: "You don't have the privelege to edit this file." });
+	}
+	res.redirect('/dashboard/myBins');
+});
+
 module.exports = router;

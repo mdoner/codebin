@@ -30,6 +30,7 @@ router.get('/myBins', ensureAuthenticated, (req, res) => {
 			read.input = '';
 			read.date = new Date(read.date).toISOString().replace(/T/, ' ').replace(/\..+/, '');
 			read.bin = file.toString().slice(0, -5);
+			read.private = read.private ? read.private : 'false';
 			docs[i] = read;
 			i++;
 		});

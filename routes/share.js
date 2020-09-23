@@ -22,6 +22,13 @@ router.get('/:id.raw', (req, res) => {
 	var data = JSONHelper.readFile(__dirname + '/../raw', req.params.id.replace(/.raw/gi, ''));
 	data.id = req.params.id;
 
+	let private = data.private ? data.private : false;
+	if (private) {
+		return res.status(410).render('404/401', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
+
 	if (req.user === undefined) {
 		username = 'Anonymous';
 	} else {
@@ -43,6 +50,13 @@ router.get('/:id', (req, res) => {
 	var data = JSONHelper.readFile(__dirname + '/../raw', req.params.id);
 	data.id = req.params.id;
 
+	let private = data.private ? data.private : false;
+	if (private) {
+		return res.status(410).render('404/401', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
+
 	var username = '';
 	if (req.user === undefined) {
 		username = 'Anonymous';
@@ -63,6 +77,13 @@ router.get('/:id/raw', (req, res) => {
 
 	var data = JSONHelper.readFile(__dirname + '/../raw', req.params.id);
 	data.id = req.params.id;
+
+	let private = data.private ? data.private : false;
+	if (private) {
+		return res.status(410).render('404/401', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
 
 	if (req.user === undefined) {
 		username = 'Anonymous';
