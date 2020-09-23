@@ -95,4 +95,18 @@ router.get('/privacy', (req, res) => {
 	});
 });
 
+//Delete Item
+router.post('/delete', (req, res) => {
+	let file = JSONHelper.readFile(__dirname + '/../raw', req.body.sent);
+
+	if (req.user.admin) {
+		JSONHelper.deleteFile(__dirname + '/../raw', req.body.sent);
+	} else if (req.user.name === file.name) {
+		JSONHelper.deleteFile(__dirname + '/../raw', req.body.sent);
+	} else {
+		return res.status(401).json({ error: "You don't have the privelege to delete this file." });
+	}
+	res.redirect('/dashboard/myBins');
+});
+
 module.exports = router;
