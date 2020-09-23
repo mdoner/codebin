@@ -14,7 +14,7 @@ const location = JSONHelper.readFile(__dirname + '/..', 'package').location;
 
 router.get('/:id.raw', (req, res) => {
 	if (!JSONHelper.exists(__dirname + '/../raw', req.params.id)) {
-		return res.render('404/bin', {
+		return res.status(410).render('404/bin', {
 			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
 		});
 	}
@@ -35,7 +35,7 @@ router.get('/:id.raw', (req, res) => {
 
 router.get('/:id', (req, res) => {
 	if (!JSONHelper.exists(__dirname + '/../raw', req.params.id)) {
-		return res.render('404/bin', {
+		return res.status(410).render('404/bin', {
 			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
 		});
 	}
@@ -56,7 +56,7 @@ router.get('/:id', (req, res) => {
 });
 router.get('/:id/raw', (req, res) => {
 	if (!JSONHelper.exists(__dirname + '/../raw', req.params.id)) {
-		return res.render('404/bin', {
+		return res.status(410).render('404/bin', {
 			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
 		});
 	}
