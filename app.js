@@ -10,8 +10,12 @@ const User = require('./models/User');
 const { uuid } = require('uuidv4');
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const JSONHelper = require('./lib/jsonHelper');
 
 const app = express();
+
+const version = JSONHelper.readFile(__dirname + '/.', 'package').version;
+const location = JSONHelper.readFile(__dirname + '/.', 'package').location;
 
 // Passport Config
 require('./config/passport')(passport);
@@ -117,6 +121,13 @@ app.use((err, req, res, next) => {
 //STATIC
 app.use('/media', express.static(path.join(__dirname, '/media')));
 app.use('/raw', express.static(path.join(__dirname, '/raw')));
+
+// Error Pages
+app.use(function(req, res) {
+	res
+		.status(404)
+		.render('404/404', { data: { input: 'cx', version: version, location: location, dateNow: Date.now() } });
+});
 
 const PORT = process.env.PORT || 5000;
 

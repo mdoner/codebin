@@ -5,10 +5,20 @@ const User = require('../models/User');
 const JSONHelper = require('../lib/jsonHelper');
 const gen = require('../lib/generate');
 var path = require('path');
+const { fstat } = require('fs');
+
+const version = JSONHelper.readFile(__dirname + '/..', 'package').version;
+const location = JSONHelper.readFile(__dirname + '/..', 'package').location;
 
 // Welcome Page
 
 router.get('/:id.raw', (req, res) => {
+	if (!JSONHelper.exists(__dirname + '/../raw', req.params.id)) {
+		return res.render('404/bin', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
+
 	var data = JSONHelper.readFile(__dirname + '/../raw', req.params.id.replace(/.raw/gi, ''));
 	data.id = req.params.id;
 
@@ -24,6 +34,12 @@ router.get('/:id.raw', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
+	if (!JSONHelper.exists(__dirname + '/../raw', req.params.id)) {
+		return res.render('404/bin', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
+
 	var data = JSONHelper.readFile(__dirname + '/../raw', req.params.id);
 	data.id = req.params.id;
 
@@ -39,6 +55,12 @@ router.get('/:id', (req, res) => {
 	});
 });
 router.get('/:id/raw', (req, res) => {
+	if (!JSONHelper.exists(__dirname + '/../raw', req.params.id)) {
+		return res.render('404/bin', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
+
 	var data = JSONHelper.readFile(__dirname + '/../raw', req.params.id);
 	data.id = req.params.id;
 
