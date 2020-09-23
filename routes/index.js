@@ -25,11 +25,8 @@ router.get('/create', checkAuth, (req, res) =>
 );
 
 router.post('/create', (req, res) => {
-	if ((typeof req.user !== 'undefined' && req.user !== null ? req.user.property : void 0) != null) {
-		var name = req.user.name ? req.user.name : 'Anonymous';
-	} else {
-		var name = 'Anonymous';
-	}
+	var reqUser = req.user ? req.user : { name: 'Anonymous' };
+	var name = reqUser.name;
 
 	var { input } = req.body;
 	let errors = [];
