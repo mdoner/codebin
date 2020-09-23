@@ -16,13 +16,13 @@
                         <td><%= new Date(docs[i].date).toISOString().replace(/T/, ' ').replace(/\..+/, '') %></td>
                         <td><kbd class="text-success"><a href="/share/<%= docs[i].bin %>"><%= docs[i].bin %></a></kbd></td>
                         <td><kbd class="text-danger"><%= docs[i].firstline %>...</kbd></td>
-                        <td><form id="privateBin" action="/changePrivate" method="POST">
+                        <td><form id="privateBin-<%=i%>" action="/changePrivate" method="POST">
                             <input type="ct" id="ct" name="ct" class="form-control" hidden value="<%= docs[i].private %>" />
                             <input type="sent" id="sent" name="sent" class="form-control" hidden value="<%= docs[i].bin %>" />
                             <%if (docs[i].private === true) {%>
-                                <a onclick="return submitIt();"><kbd class="text-success">true</kbd></a>
+                                <a onclick="document.getElementById('privateBin-<%=i%>').submit()"><kbd class="text-success">true</kbd></a>
                             <%} else { %>
-                                <a onclick="return submitIt();"><kbd class="text-danger">false</kbd></a>
+                                <a onclick="document.getElementById('privateBin-<%=i%>').submit()"><kbd class="text-danger">false</kbd></a>
                             <%}%>
                         </form>
                         </td>
@@ -48,7 +48,4 @@
 </div>
 
 <script>
-    function submitIt() {
-        document.getElementById('privateBin').submit();
-    }
 </script>
