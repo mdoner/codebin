@@ -84,6 +84,89 @@ router.post('/create', (req, res) => {
 	});
 });
 
+router.get('/edit', checkAuth, (req, res) =>
+	res.render('create', {
+		name: req.user.name ? req.user.name : 'Anonymous',
+		data: { input: 'cx' }
+	})
+);
+
+router.post('/edit', (req, res) => {
+	var reqUser = req.user ? req.user : { name: 'Anonymous' };
+	var name = reqUser.name;
+
+	var { input } = req.body;
+	let errors = [];
+
+	if (input.toString().replace(/(?:\r\n|\r|\n)/g, '').replace(/ /g, '').length < 1) {
+		return res.render('users/login', {
+			errors,
+			data: { input: 'cx' }
+		});
+	}
+
+	if (!name || !input) {
+		errors.push({ msg: 'Please enter all fields' });
+	}
+	var JSONObj = {};
+	JSONObj.name = name;
+	JSONObj.input = input.split('\r\n');
+	JSONObj.date = new Date();
+	JSONObj.views = 0;
+
+	var fileName = req.body.dataID;
+
+	console.log(fileName)
+
+	if (!JSONHelper.exists(__dirname + '/../raw', fileName)) {
+		return res.status(410).render('404/bin', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
+
+	var data = JSONHelper.readFile(__dirname + '/../raw', fileName);
+	
+	if (!reqUser.admin && reqUser.name !== data.name) {
+		return res.status(401).render('404/401_1', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
+
+	//Captcha
+	if (
+		req.body['g-recaptcha-response'] === undefined ||
+		req.body['g-recaptcha-response'] === '' ||
+		req.body['g-recaptcha-response'] === null
+	) {
+		errors.push({ msg: 'Failed captcha!' });
+		return res.render('users/login', {
+			errors,
+			data: { input: 'cx' }
+		});
+	}
+
+	var secretKey = '6LcwKc8ZAAAAAFr26C1CEW660dKbfiikw9UyBp6d';
+	var verificationUrl =
+		'https://www.recaptcha.net/recaptcha/api/siteverify?secret=' +
+		secretKey +
+		'&response=' +
+		req.body['g-recaptcha-response'] +
+		'&remoteip=' +
+		req.connection.remoteAddress;
+
+	request(verificationUrl, function(error, response, body) {
+		body = JSON.parse(body);
+		if (body.success !== undefined && !body.success) {
+			errors.push({ msg: 'Failed captcha!' });
+			return res.render('users/login', {
+				errors,
+				data: { input: 'cx' }
+			});
+		}
+		JSONHelper.writeFile(__dirname + '/../raw', fileName, JSONObj, res.redirect('/share/' + fileName));
+	});
+});
+
 //TOS
 router.get('/terms', (req, res) => {
 	res.render('terms/tos', {

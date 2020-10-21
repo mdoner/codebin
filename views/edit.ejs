@@ -1,0 +1,52 @@
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark noselect">
+  <a class="navbar-brand" href="/">
+      <img src="/media/codebin-1.png" width="40" height="40" alt="" loading="lazy">
+    </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <a class="navbar-brand" href="/">
+        <h2 class="align-text-bottom" style="color: #62B6AF;">Codebin</h2>
+      </a>
+    </ul>
+    <% if(name !== 'Anonymous') {%>
+      <a href="/users/logout"><img style="width: 30px; height: 30px;" src="/media/logout.svg" loading="lazy"></a>
+    <%}%>
+  </div>
+</nav>
+<!-- Container -->
+<div style="float: left;" class="mt-2 noselect">
+  <form action="/edit" id="create" method="POST">
+    <input id="dataID" name="dataID" hidden value="<%= data.id %>"/>
+    <button id="subBtn" class="g-recaptcha btn btn-info mt-0 " style="position: absolute; float: right; right:0.2rem;"
+        data-sitekey="6LcwKc8ZAAAAAGfWhYJYJUu4rhNve4s4HVRr8B-Q" 
+        data-callback='onSubmit' 
+        data-theme='dark'
+        data-action='submit'>Save Code</button>
+<textarea id="input" name="input" spellcheck="false" class="tabSupport" style="width:100vw; height: 40vmax; margin-left: 2rem; margin-top: 0.8rem;">
+<%data.input.forEach((text)=>{%><%=text + String.fromCharCode(13,10);%><%});%>
+</textarea>
+
+  </form>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('#create').submit(function() {
+      $(this).ajaxSubmit({
+        error: function(xhr) {
+          status('Error: ' + xhr.status);
+        },
+       success: function(response) {
+        console.log(response);
+       }
+      });
+      //Very important line, it disable the page refresh.
+      return false;
+    });
+  });
+</script>
