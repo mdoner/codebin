@@ -116,6 +116,41 @@ router.get('/:id/raw', (req, res) => {
 	});
 });
 
+router.get('/:id/edit', (req, res) => {
+if (!JSONHelper.exists(__dirname + '/../raw', req.params.id)) {
+		return res.status(410).render('404/bin', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
+
+	var data = JSONHelper.readFile(__dirname + '/../raw', req.params.id);
+	data.id = req.params.id;
+
+	let user = req.user ? req.user : { name: 'Anonymous', admin: false };
+
+	if(user.name === 'Anonymous') {
+		return res.status(406).render('404/406', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
+
+	if (!user.admin && user.name !== data.name) {
+		return res.status(401).render('404/401_1', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
+
+	if (req.user === undefined) {
+		username = 'Anonymous';
+	} else {
+		username = req.user.name;
+	}
+	res.render('edit', {
+		data: data,
+		name: username
+	});
+});
+
 router.get('/', (req, res) => {
 	res.redirect('/create');
 });
