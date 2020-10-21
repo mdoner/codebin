@@ -16,6 +16,11 @@ router.get('/', forwardAuthenticated, (req, res) => {
 	res.render('welcome', { data: { input: 'cx', version: version, location: location, dateNow: Date.now() } });
 });
 
+//Discord
+router.get('/discord', (req, res) => {
+	res.redirect('https://discord.gg/G99GqE3');
+});
+
 // Creator
 router.get('/create', checkAuth, (req, res) =>
 	res.render('create', {
