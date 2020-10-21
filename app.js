@@ -131,6 +131,7 @@ app.use((err, req, res, next) => {
 //STATIC
 app.use('/media', express.static(path.join(__dirname, '/media')));
 app.use('/raw', express.static(path.join(__dirname, '/raw')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 // Error Pages
 app.use(function(req, res) {
