@@ -45,6 +45,7 @@ router.post('/create', (req, res) => {
 	JSONObj.name = name;
 	JSONObj.input = input.split('\r\n');
 	JSONObj.date = new Date();
+	JSONObj.views = 0;
 
 	var fileName = new gen().createKey(6);
 

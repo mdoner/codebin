@@ -6,6 +6,7 @@ const JSONHelper = require('../lib/jsonHelper');
 const gen = require('../lib/generate');
 var path = require('path');
 const { fstat } = require('fs');
+const jsonHelper = require('../lib/jsonHelper');
 
 const version = JSONHelper.readFile(__dirname + '/..', 'package').version;
 const location = JSONHelper.readFile(__dirname + '/..', 'package').location;
@@ -54,6 +55,9 @@ router.get('/:id', (req, res) => {
 	var data = JSONHelper.readFile(__dirname + '/../raw', req.params.id);
 	data.id = req.params.id;
 
+	var views = data.views ? data.views : 0;
+	data.views = views + 1;
+
 	let private = data.private ? data.private : false;
 	let user = req.user ? req.user : { name: 'Anonymous', admin: false };
 
@@ -71,9 +75,13 @@ router.get('/:id', (req, res) => {
 	} else {
 		username = req.user.name;
 	}
+
+	JSONHelper.writeFile(__dirname + '/../raw', data.id, data);
+
 	res.render('share', {
 		data: data,
-		name: username
+		name: username,
+		path: req.path
 	});
 });
 router.get('/:id/raw', (req, res) => {

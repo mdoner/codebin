@@ -13,6 +13,19 @@ textarea {
 
 body {
 	overflow: auto;
+	overflow-x: hidden;
+}
+
+.nostyle {
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	outline: 0 !important;
+	font-size: 100% !important;
+	vertical-align: baseline !important;
+	background: transparent !important;
+	text-decoration: none !important;
+	cursor: pointer;
 }
 
 body::-webkit-scrollbar-corner {
@@ -69,4 +82,92 @@ textarea#input::-webkit-scrollbar-thumb {
 
 .g-recaptcha {
 	display: inline-block;
+}
+
+/* Popup */
+
+.boxp {
+	width: 40%;
+	margin: 0 auto;
+	background: rgba(255, 255, 255, 0.2);
+	padding: 35px;
+	border: 2px solid #fff;
+	border-radius: 20px/50px;
+	background-clip: padding-box;
+	text-align: center;
+}
+
+.button2 {
+	font-size: 1em;
+	padding: 10px;
+	color: #fff;
+	border: 2px solid #62b6af;
+	border-radius: 20px/50px;
+	text-decoration: none;
+	cursor: pointer;
+	transition: all 0.3s ease-out;
+}
+.button2:hover {
+	background: #62b6af;
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.7);
+	transition: opacity 0.5s;
+	visibility: hidden;
+	opacity: 0;
+}
+.overlay:target {
+	visibility: visible;
+	opacity: 1;
+}
+
+.popup {
+	margin: 70px auto;
+	padding: 20px;
+	background: #fff;
+	border-radius: 5px;
+	width: 30%;
+	height: 120px;
+	position: relative;
+	transition: all 0.5s ease-in-out;
+}
+
+.popup h2 {
+	margin: 10px;
+	margin-top: 0;
+	color: #333;
+	font-family: Tahoma, Arial, sans-serif;
+	font-size: 16px;
+}
+.popup .close {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	transition: all 200ms;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+	color: white;
+}
+.popup .close:hover {
+	color: #62b6af;
+}
+.popup .content {
+	max-height: 50%;
+	overflow: hidden;
+}
+
+@media screen and (max-width: 700px) {
+	.box2 {
+		width: 70%;
+	}
+	.popup {
+		width: 70%;
+	}
 }

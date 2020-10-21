@@ -42,6 +42,7 @@ router.get('/bins', ensureAdmin, (req, res) => {
 			read.input = '';
 			read.date = new Date(read.date).toISOString().replace(/T/, ' ').replace(/\..+/, '');
 			read.bin = file.toString().slice(0, -5);
+			read.views = read.views ? read.views : '0';
 			docs[i] = read;
 			i++;
 		});

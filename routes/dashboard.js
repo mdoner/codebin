@@ -31,6 +31,7 @@ router.get('/myBins', ensureAuthenticated, (req, res) => {
 			read.date = new Date(read.date).toISOString().replace(/T/, ' ').replace(/\..+/, '');
 			read.bin = file.toString().slice(0, -5);
 			read.private = read.private ? read.private : 'false';
+			read.views = read.views ? read.views : '0';
 			docs[i] = read;
 			i++;
 		});
@@ -65,6 +66,7 @@ router.post('/create', (req, res) => {
 	JSONObj.name = name;
 	JSONObj.input = input.split('\r\n');
 	JSONObj.date = new Date();
+	JSONObj.views = 0;
 
 	var fileName = new gen().createKey(6);
 	JSONHelper.writeFile(__dirname + '/../raw', fileName, JSONObj, res.redirect('/share/' + fileName));

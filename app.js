@@ -14,6 +14,7 @@ const JSONHelper = require('./lib/jsonHelper');
 const schedule = require('node-schedule');
 const nodemailer = require('nodemailer');
 const boolParser = require('express-query-boolean');
+const nocache = require('nocache');
 
 const app = express();
 
@@ -55,6 +56,10 @@ app.use(passport.session());
 
 // Connect flash
 app.use(flash());
+
+//No caching
+app.disable('view cache');
+app.use(nocache());
 
 // Global variables
 app.use(function(req, res, next) {
