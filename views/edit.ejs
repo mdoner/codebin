@@ -10,7 +10,7 @@
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
       <a class="navbar-brand" href="/">
-        <h2 class="align-text-bottom" style="color: #62B6AF;">Codebin</h2>
+        <h2 class="align-text-bottom" style="color: #62B6AF;">Edit Bin: <%= data.id %></h2>
       </a>
     </ul>
     <% if(name !== 'Anonymous') {%>
@@ -27,9 +27,7 @@
         data-callback='onSubmit' 
         data-theme='dark'
         data-action='submit'>Save Code</button>
-<textarea id="input" name="input" spellcheck="false" class="tabSupport" style="width:100vw; height: 40vmax; margin-left: 2rem; margin-top: 0.8rem;">
-<%data.input.forEach((text)=>{%><%=text + String.fromCharCode(13,10);%><%});%>
-</textarea>
+<textarea id="input" name="input" spellcheck="false" class="tabSupport" style="width:100vw; height: 40vmax; margin-left: 2rem; margin-top: 0.8rem;"><%for(i in data.input) {%><%= data.input[i] + String.fromCharCode(10);%><%}%></textarea>
 
   </form>
 </div>
