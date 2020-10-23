@@ -18,7 +18,7 @@
       <h5><a class="nostyle text-center" style="color: #62B6AF;" href="/share<%= path %>/raw">Raw File</a></h5>
     </button>
 
-    <% if(name === data.name) { %>
+    <% if(name === data.name && name != 'Anonymous') { %>
     <button class="btn btn-secondary mr-2">
       <h5><a class="nostyle text-center" style="color: #62B6AF;" href="/share<%= path %>/edit">Edit</a></h5>
     </button>
