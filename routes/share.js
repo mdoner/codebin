@@ -182,10 +182,9 @@ router.get('/:id', (req, res) => {
 			path: path
 		});
 	}
+	
+	JSONHelper.writeFile(__dirname + '/../raw', data.id, data);
 
-
-
-	//JSONHelper.writeFile(__dirname + '/../raw', data.id, data);
 });
 router.get('/:id/raw', (req, res) => {
 	if (!JSONHelper.exists(__dirname + '/../raw', req.params.id)) {
