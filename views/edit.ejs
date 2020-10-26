@@ -13,6 +13,11 @@
         <h2 class="align-text-bottom" style="color: #62B6AF;">Edit Bin: <%= data.id %></h2>
       </a>
     </ul>
+
+    <button class="btn btn-secondary mr-4">
+      <h5><a class="nostyle text-center" style="color: #62B6AF;" href="#password">Password</a></h5>
+    </button>
+
     <% if(name !== 'Anonymous') {%>
       <a href="/users/logout"><img style="width: 30px; height: 30px;" src="/media/logout.svg" loading="lazy"></a>
     <%}%>
@@ -31,6 +36,36 @@
 
   </form>
 </div>
+
+<section style="z-index: 1000;">
+  <div class="rt-container">
+    <div class="col-rt-12">
+        <div class="Scriptcontent">
+          <div id="password" class="overlay">
+              <div class="popup bg-dark" style="height: 260px;">
+                <br />
+                  <h4 style="text-align:center;color: #62B6AF;">Change password</h4>
+                  <h6 style="text-align:center;color: #62B6AF;">Leave blank to remove password</h6>
+                  <br />
+                  <a class="close" href="#">&times;</a>
+                  <div class="content">
+                    <form action="/share<%= path %>/updatePassword" id="authPost" method="POST" autocomplete="off">
+                        <input type="password" id="password" name="password" autocomplete="off" class="btn-block text-center"></input>
+                      </br>
+                      <div id="btncnt" style="text-align:center;">
+                        <button type="submit" class="btn btn-secondary mr-4">
+                          <h5><a class="nostyle text-center" style="color: #62B6AF;">Submit</a></h5>
+                        </button>
+                        </br>
+                      </div>
+                      </br>
+                    </form>
+                  </div>
+              </div>
+          </div>	
+      </div>
+  </div>
+</section>
 
 <script>
   $(document).ready(function() {

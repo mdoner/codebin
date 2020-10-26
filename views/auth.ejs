@@ -1,0 +1,75 @@
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark noselect">
+  <a class="navbar-brand" href="/">
+      <img src="/media/codebin-1.png" width="40" height="40" alt="" loading="lazy">
+    </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <a class="navbar-brand" href="/">
+        <h3 style="color: #62B6AF;">Codebin by: <%= data.name %></h3>
+      </a>
+    </ul>
+  </div>
+</nav>
+<!-- Container -->
+
+<section style="z-index: 1000;">
+  <div class="rt-container">
+    <div class="col-rt-12">
+        <div class="Scriptcontent">
+          <div id="auth" class="authoverlay">
+              <div class="popup bg-dark" style="height: 240px;">
+                <br />
+                  <h4 style="text-align:center;color: #62B6AF;">Enter password to continue</h4>
+                  <br />
+                  <div class="content">
+                    <form action="/share<%=path %>/auth" id="authPost" method="POST" autocomplete="off">
+                        <input type="password" id="password" name="password" autocomplete="off" class="btn-block text-center"></input>
+                      </br>
+                      <div id="btncnt" style="text-align:center;">
+                        <button type="submit" class="btn btn-secondary mr-4">
+                          <h5><a class="nostyle text-center" style="color: #62B6AF;">Submit</a></h5>
+                        </button>
+                        </br>
+                      </div>
+                      </br>
+                    </form>
+                  </div>
+              </div>
+          </div>	
+      </div>
+  </div>
+</section>
+
+<section style="z-index: 10000;">
+  <div class="rt-container">
+    <div class="col-rt-12">
+        <div class="Scriptcontent">
+          <div id="error" class="overlay">
+              <div class="popup bg-dark" style="height: 280px;">
+                <br />
+                  <h4 style="text-align:center;color: #62B6AF;">Enter password to continue</h4>
+                  <br />
+                  <p style="text-align:center;color: red">Invalid password!</p>
+                  <div class="content">
+                    <form action="/share<%=path %>/auth" id="authPost" method="POST" autocomplete="off">
+                        <input type="password" id="password" name="password" autocomplete="off" class="btn-block text-center"></input>
+                      </br>
+                      <div id="btncnt" style="text-align:center;">
+                        <button type="submit" class="btn btn-secondary mr-4">
+                          <h5><a class="nostyle text-center" style="color: #62B6AF;">Submit</a></h5>
+                        </button>
+                        </br>
+                      </div>
+                      </br>
+                    </form>
+                  </div>
+              </div>
+          </div>	
+      </div>
+  </div>
+</section>

@@ -48,12 +48,31 @@
     <div class="col-rt-12">
         <div class="Scriptcontent">
           <div id="share" class="overlay">
-              <div class="popup bg-dark">
-                  
+              <div class="popup bg-dark" style="height: 140px;">
+                <br />
+                  <h4 style="text-align:center;color: #62B6AF;">Copy link to share</h4>
                   <br />
-                  <p style="color: #62B6AF;">Share URL</p>
                   <a class="close" href="#">&times;</a>
+                  <div class="content">
+                      <kbd class="btn-block text-center"><a id="copy" style="color:#62B6AF;" onclick="copy(this)">https://cdbn.link<%=path %></a></kbd>
+                  </div>
+              </div>
+          </div>	
+      </div>
+  </div>
+</section>
 
+<section style="z-index: 1000;">
+  <div class="rt-container">
+    <div class="col-rt-12">
+        <div class="Scriptcontent">
+          <div id="c" class="overlay">
+              <div class="popup bg-dark" style="height: 180px;">
+                  <h4 style="text-align:center;color: #62B6AF;">Created your bin!</h4>
+                  <br />
+                  <a class="close" href="#">&times;</a>
+                  <h5 style="text-align:center;color: #62B6AF;">Copy link down below to share.</h5>
+                  <br />
                   <div class="content">
                       <kbd class="btn-block text-center"><a id="copy" style="color:#62B6AF;" onclick="copy(this)">https://cdbn.link<%=path %></a></kbd>
                   </div>

@@ -85,7 +85,7 @@ router.post('/create', (req, res) => {
 				data: { input: 'cx' }
 			});
 		}
-		JSONHelper.writeFile(__dirname + '/../raw', fileName, JSONObj, res.redirect('/share/' + fileName));
+		JSONHelper.writeFile(__dirname + '/../raw', fileName, JSONObj, res.redirect('/share/' + fileName + "#c"));
 	});
 });
 

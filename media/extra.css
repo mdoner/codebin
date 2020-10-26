@@ -122,7 +122,20 @@ textarea#input::-webkit-scrollbar-thumb {
 	visibility: hidden;
 	opacity: 0;
 }
+
 .overlay:target {
+	visibility: visible;
+	opacity: 1;
+}
+
+.authoverlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.7);
+	transition: opacity 0.5s;
 	visibility: visible;
 	opacity: 1;
 }
