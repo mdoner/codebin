@@ -223,7 +223,7 @@ router.get('/:id/raw', (req, res) => {
 	}
 
 	if(password == null) {
-		res.render('share', {
+		res.render('raw', {
 			data: data,
 			name: username,
 			path: path
@@ -235,7 +235,7 @@ router.get('/:id/raw', (req, res) => {
 			path: path
 		});
 	} else {
-		res.render('share', {
+		res.render('raw', {
 			data: data,
 			name: username,
 			path: path
