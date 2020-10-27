@@ -89,6 +89,20 @@ router.post('/create', (req, res) => {
 	});
 });
 
+router.get('/raw/:id', (req, res) => {
+	if (!JSONHelper.exists(__dirname + '/../raw', req.params.id)) {
+		return res.status(410).render('404/bin', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
+
+	var data = JSONHelper.readFile(__dirname + '/../raw', req.params.id);
+
+	delete data.password;
+
+	res.status(200).json(data);
+});
+
 router.get('/edit', checkAuth, (req, res) =>
 	res.render('create', {
 		name: req.user.name ? req.user.name : 'Anonymous',
