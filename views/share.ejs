@@ -74,7 +74,7 @@
                   <h5 style="text-align:center;color: #62B6AF;">Copy link down below to share.</h5>
                   <br />
                   <div class="content">
-                      <kbd class="btn-block text-center"><a id="copy" style="color:#62B6AF;" onclick="copy(this)">https://cdbn.link<%=path %></a></kbd>
+                      <kbd class="btn-block text-center"><a id="copyC" style="color:#62B6AF;" onclick="copyC(this)">https://cdbn.link<%=path %></a></kbd>
                   </div>
               </div>
           </div>	
@@ -92,6 +92,27 @@
       inp.remove();
 
       var copy = document.getElementById('copy');
+      var text = copy.innerHTML;
+
+      copy.innerHTML = 'Copied!';
+
+      copy.style.color = "lightgreen";
+
+      setTimeout(function() {
+        copy.innerHTML = text;
+        copy.style.color = "#62B6AF";
+      }, 1000);
+    }
+
+    function copyC(that){
+      var inp = document.createElement('input');
+      document.body.appendChild(inp)
+      inp.value =that.textContent
+      inp.select();
+      document.execCommand('copy',false);
+      inp.remove();
+
+      var copy = document.getElementById('copyC');
       var text = copy.innerHTML;
 
       copy.innerHTML = 'Copied!';
