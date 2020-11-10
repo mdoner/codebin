@@ -186,6 +186,35 @@ router.get('/:id', (req, res) => {
 	JSONHelper.writeFile(__dirname + '/../raw', data.id, data);
 
 });
+router.get('/:id/copy', (req, res) => {
+	if (!JSONHelper.exists(__dirname + '/../raw', req.params.id)) {
+		return res.status(410).render('404/bin', {
+			data: { input: 'cx', version: version, location: location, dateNow: Date.now() }
+		});
+	}
+
+	var data = JSONHelper.readFile(__dirname + '/../raw', req.params.id);
+	data.id = req.params.id;
+
+	if (req.user === undefined) {
+		username = 'Anonymous';
+	} else {
+		username = req.user.name;
+	}
+
+	var path = req.path;
+
+	if(path.endsWith('/auth')) {
+		path = req.path.slice(0,-5);
+	}
+
+	res.render('copy', {
+		data: data,
+		name: username,
+		path: path
+	});
+});
+
 router.get('/:id/raw', (req, res) => {
 	if (!JSONHelper.exists(__dirname + '/../raw', req.params.id)) {
 		return res.status(410).render('404/bin', {
@@ -305,6 +334,8 @@ router.post('/:id/edit/updatePassword', (req, res) => {
 	}
 
 	JSONHelper.writeFile(__dirname + '/../raw', data.id, data);
+
+	res.redirect('/share/' + req.params.id + '/edit');
 });
 
 router.get('/', (req, res) => {
