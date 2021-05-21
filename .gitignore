@@ -3,3 +3,6 @@ node_modules
 
 #Photoshop
 *.psd
+
+#Sensitive Stuff
+.env

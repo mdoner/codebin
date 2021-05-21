@@ -1,239 +1,261 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const passport = require('passport');
+const bcrypt = require("bcryptjs");
+const passport = require("passport");
 // Load User model
-const User = require('../models/User');
-const { forwardAuthenticated } = require('../config/auth');
-const request = require('request');
-const JSONHelper = require('../lib/jsonHelper');
+const User = require("../models/User");
+const { forwardAuthenticated } = require("../config/auth");
+const request = require("request");
+const JSONHelper = require("../lib/jsonHelper");
 
-const version = JSONHelper.readFile(__dirname + '/..', 'package').version;
-const location = JSONHelper.readFile(__dirname + '/..', 'package').location;
+const version = JSONHelper.readFile(__dirname + "/..", "package").version;
+const location = JSONHelper.readFile(__dirname + "/..", "package").location;
+
+const dotenv = require("dotenv").config();
 
 // Login Page
-router.get('/login', forwardAuthenticated, (req, res) =>
-	res.render('users/login', { data: { input: 'cx', version: version, location: location, dateNow: Date.now() } })
+router.get("/login", forwardAuthenticated, (req, res) =>
+  res.render("users/login", {
+    data: {
+      input: "cx",
+      version: version,
+      location: location,
+      dateNow: Date.now(),
+    },
+  })
 );
 
 // Register Page
-router.get('/register', forwardAuthenticated, (req, res) =>
-	res.render('users/register', { data: { input: 'cx', version: version, location: location, dateNow: Date.now() } })
+router.get("/register", forwardAuthenticated, (req, res) =>
+  res.render("users/register", {
+    data: {
+      input: "cx",
+      version: version,
+      location: location,
+      dateNow: Date.now(),
+    },
+  })
 );
 
 //Mail stuff
-var nodemailer = require('nodemailer');
+var nodemailer = require("nodemailer");
 
 // Register
-router.post('/register', (req, res) => {
-	const { name, email, password, password2 } = req.body;
-	let errors = [];
+router.post("/register", (req, res) => {
+  const { name, email, password, password2 } = req.body;
+  let errors = [];
 
-	if (!name || !email || !password || !password2) {
-		errors.push({ msg: 'Please enter all fields' });
-	}
+  if (!name || !email || !password || !password2) {
+    errors.push({ msg: "Please enter all fields" });
+  }
 
-	if (password != password2) {
-		errors.push({ msg: 'Passwords do not match' });
-	}
+  if (password != password2) {
+    errors.push({ msg: "Passwords do not match" });
+  }
 
-	if (password.length < 6) {
-		errors.push({ msg: 'Password must be at least 6 characters' });
-	}
+  if (password.length < 6) {
+    errors.push({ msg: "Password must be at least 6 characters" });
+  }
 
-	if (name.length < 3) {
-		errors.push({ msg: 'Username must be at least 3 characters' });
-	}
-	if (name.length > 16) {
-		errors.push({ msg: 'Username must be 16 characters at most' });
-	}
+  if (name.length < 3) {
+    errors.push({ msg: "Username must be at least 3 characters" });
+  }
+  if (name.length > 16) {
+    errors.push({ msg: "Username must be 16 characters at most" });
+  }
 
-	if (errors.length > 0) {
-		res.render('users/register', {
-			errors,
-			name,
-			email,
-			password,
-			password2,
-			data: {
-				input: 'cx'
-			}
-		});
-	} else {
-		User.findOne({ email: { $regex: new RegExp(email, 'i') } }).then((user) => {
-			if (user) {
-				errors.push({ msg: 'That email address is already registered' });
-				res.render('users/register', {
-					errors,
-					name,
-					email,
-					password,
-					password2,
-					data: {
-						input: 'cx'
-					}
-				});
-			} else {
-				User.findOne({ name: { $regex: new RegExp(name, 'i') } }).then((user) => {
-					if (user) {
-						errors.push({ msg: 'That username is already registered' });
-						res.render('users/register', {
-							errors,
-							name,
-							email,
-							password,
-							password2,
-							data: {
-								input: 'cx'
-							}
-						});
-					} else {
-						const newUser = new User({
-							name,
-							email,
-							password,
-							data: {
-								input: 'cx'
-							}
-						});
+  if (errors.length > 0) {
+    res.render("users/register", {
+      errors,
+      name,
+      email,
+      password,
+      password2,
+      data: {
+        input: "cx",
+      },
+    });
+  } else {
+    User.findOne({ email: { $regex: new RegExp(email, "i") } }).then((user) => {
+      if (user) {
+        errors.push({ msg: "That email address is already registered" });
+        res.render("users/register", {
+          errors,
+          name,
+          email,
+          password,
+          password2,
+          data: {
+            input: "cx",
+          },
+        });
+      } else {
+        User.findOne({ name: { $regex: new RegExp(name, "i") } }).then(
+          (user) => {
+            if (user) {
+              errors.push({ msg: "That username is already registered" });
+              res.render("users/register", {
+                errors,
+                name,
+                email,
+                password,
+                password2,
+                data: {
+                  input: "cx",
+                },
+              });
+            } else {
+              const newUser = new User({
+                name,
+                email,
+                password,
+                data: {
+                  input: "cx",
+                },
+              });
 
-						if (
-							req.body['g-recaptcha-response'] === undefined ||
-							req.body['g-recaptcha-response'] === '' ||
-							req.body['g-recaptcha-response'] === null
-						) {
-							let errors = [];
-							errors.push({ msg: 'Failed captcha!' });
-							return res.render('users/register', {
-								errors,
-								data: {
-									input: 'cx'
-								}
-							});
-						}
+              if (
+                req.body["g-recaptcha-response"] === undefined ||
+                req.body["g-recaptcha-response"] === "" ||
+                req.body["g-recaptcha-response"] === null
+              ) {
+                let errors = [];
+                errors.push({ msg: "Failed captcha!" });
+                return res.render("users/register", {
+                  errors,
+                  data: {
+                    input: "cx",
+                  },
+                });
+              }
 
-						var secretKey = '6LezSs0ZAAAAAJ6floShYqYAf35TAeayIV7N9wDC';
-						var verificationUrl =
-							'https://www.recaptcha.net/recaptcha/api/siteverify?secret=' +
-							secretKey +
-							'&response=' +
-							req.body['g-recaptcha-response'] +
-							'&remoteip=' +
-							req.connection.remoteAddress;
+              var secretKey = process.env.CAPTCHA_SECRET;
+              var verificationUrl =
+                "https://www.recaptcha.net/recaptcha/api/siteverify?secret=" +
+                secretKey +
+                "&response=" +
+                req.body["g-recaptcha-response"] +
+                "&remoteip=" +
+                req.connection.remoteAddress;
 
-						request(verificationUrl, function(error, response, body) {
-							body = JSON.parse(body);
-							// Success will be true or false depending upon captcha validation.
-							if (body.success !== undefined && !body.success) {
-								let errors = [];
-								errors.push({ msg: 'Failed captcha!' });
-								return res.render('users/register', {
-									errors,
-									data: {
-										input: 'cx'
-									}
-								});
-							}
-						});
+              request(verificationUrl, function (error, response, body) {
+                body = JSON.parse(body);
+                // Success will be true or false depending upon captcha validation.
+                if (body.success !== undefined && !body.success) {
+                  let errors = [];
+                  errors.push({ msg: "Failed captcha!" });
+                  return res.render("users/register", {
+                    errors,
+                    data: {
+                      input: "cx",
+                    },
+                  });
+                }
+              });
 
-						bcrypt.genSalt(10, (err, salt) => {
-							bcrypt.hash(newUser.password, salt, (err, hash) => {
-								if (err) throw err;
-								newUser.password = hash;
-								newUser
-									.save()
-									.then((user) => {
-										req.flash('success_msg', 'You are now registered and can log in');
+              bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(newUser.password, salt, (err, hash) => {
+                  if (err) throw err;
+                  newUser.password = hash;
+                  newUser
+                    .save()
+                    .then((user) => {
+                      req.flash(
+                        "success_msg",
+                        "You are now registered and can log in"
+                      );
 
-										// Send mail
-										var transOptions = {
-											host: 'smtp.eu.mailgun.org',
-											port: 587,
-											secure: false,
-											auth: {
-												user: 'postmaster@mail.codebin.run',
-												pass: '3bce8b41e34ba484f47027ff13afeda8-d5e69b0b-159a84bf'
-											}
-										};
-										var transporter = nodemailer.createTransport(transOptions);
-										var mainOptions = {
-											from: 'Codebin Team <info@mail.codebin.run>',
-											to: email,
-											subject: 'Welcome to Codebin!',
-											html: plate.replace('{name}', name)
-										};
-										var callback = function(err, info) {
-											if (err) {
-												throw err;
-											}
-										};
-										transporter.sendMail(mainOptions, callback);
+                      // Send mail
+                      var transOptions = {
+                        host: "smtp.eu.mailgun.org",
+                        port: 587,
+                        secure: false,
+                        auth: {
+                          user: process.env.MG_USER,
+                          pass: process.env.MG_PW,
+                        },
+                      };
+                      var transporter =
+                        nodemailer.createTransport(transOptions);
+                      var mainOptions = {
+                        from: "Codebin Team <info@mail.codebin.run>",
+                        to: email,
+                        subject: "Welcome to Codebin!",
+                        html: plate.replace("{name}", name),
+                      };
+                      var callback = function (err, info) {
+                        if (err) {
+                          throw err;
+                        }
+                      };
+                      transporter.sendMail(mainOptions, callback);
 
-										//Redirect
-										res.redirect('/users/login');
-									})
-									.catch((err) => console.log(err));
-							});
-						});
-					}
-				});
-			}
-		});
-	}
+                      //Redirect
+                      res.redirect("/users/login");
+                    })
+                    .catch((err) => console.log(err));
+                });
+              });
+            }
+          }
+        );
+      }
+    });
+  }
 });
 
 // Login
-router.post('/login', (req, res, next) => {
-	if (
-		req.body['g-recaptcha-response'] === undefined ||
-		req.body['g-recaptcha-response'] === '' ||
-		req.body['g-recaptcha-response'] === null
-	) {
-		let errors = [];
-		errors.push({ msg: 'Failed captcha!' });
-		return res.render('users/login', {
-			errors,
-			data: {
-				input: 'cx'
-			}
-		});
-	}
+router.post("/login", (req, res, next) => {
+  if (
+    req.body["g-recaptcha-response"] === undefined ||
+    req.body["g-recaptcha-response"] === "" ||
+    req.body["g-recaptcha-response"] === null
+  ) {
+    let errors = [];
+    errors.push({ msg: "Failed captcha!" });
+    return res.render("users/login", {
+      errors,
+      data: {
+        input: "cx",
+      },
+    });
+  }
 
-	var secretKey = '6LezSs0ZAAAAAJ6floShYqYAf35TAeayIV7N9wDC';
-	var verificationUrl =
-		'https://www.recaptcha.net/recaptcha/api/siteverify?secret=' +
-		secretKey +
-		'&response=' +
-		req.body['g-recaptcha-response'] +
-		'&remoteip=' +
-		req.connection.remoteAddress;
+  var secretKey = process.env.CAPTCHA_SECRET;
+  var verificationUrl =
+    "https://www.recaptcha.net/recaptcha/api/siteverify?secret=" +
+    secretKey +
+    "&response=" +
+    req.body["g-recaptcha-response"] +
+    "&remoteip=" +
+    req.connection.remoteAddress;
 
-	request(verificationUrl, function(error, response, body) {
-		body = JSON.parse(body);
-		// Success will be true or false depending upon captcha validation.
-		if (body.success !== undefined && !body.success) {
-			let errors = [];
-			errors.push({ msg: 'Failed captcha!' });
-			return res.render('users/login', {
-				errors,
-				data: {
-					input: 'cx'
-				}
-			});
-		}
-		passport.authenticate('local', {
-			successRedirect: '/dashboard',
-			failureRedirect: '/users/login',
-			failureFlash: true
-		})(req, res, next);
-	});
+  request(verificationUrl, function (error, response, body) {
+    body = JSON.parse(body);
+    // Success will be true or false depending upon captcha validation.
+    if (body.success !== undefined && !body.success) {
+      let errors = [];
+      errors.push({ msg: "Failed captcha!" });
+      return res.render("users/login", {
+        errors,
+        data: {
+          input: "cx",
+        },
+      });
+    }
+    passport.authenticate("local", {
+      successRedirect: "/dashboard",
+      failureRedirect: "/users/login",
+      failureFlash: true,
+    })(req, res, next);
+  });
 });
 
 // Logout
-router.get('/logout', (req, res) => {
-	req.logout();
-	req.flash('success_msg', 'You are logged out');
-	res.redirect('/users/login');
+router.get("/logout", (req, res) => {
+  req.logout();
+  req.flash("success_msg", "You are logged out");
+  res.redirect("/users/login");
 });
 
 //Email plate
